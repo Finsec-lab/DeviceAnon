@@ -1,71 +1,95 @@
-# DeviceAnon — by FinSec
+<div align="center">
 
-Spoof your Android device identity (build props + fingerprint) to a real
-device profile, applied as a **Magisk module** so it survives reboots.
+# DeviceAnon
 
-Built for research, app-compatibility testing, and privacy. Ships with **35+
-real-format device profiles spanning Android 5 → 16** (Pixel/Nexus + Samsung
-Galaxy).
+Swap your Android build fingerprint and product properties for a real
+shipping-device profile. Applied as a Magisk module, so it survives reboots.
 
-> Requires **root (Magisk / KernelSU)**. The app shells out to `su` and writes
-> a Magisk module under `/data/adb/modules/deviceanon_props`.
+[![Build](https://github.com/Finsec-lab/DeviceAnon/actions/workflows/build.yml/badge.svg)](https://github.com/Finsec-lab/DeviceAnon/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/Finsec-lab/DeviceAnon)](https://github.com/Finsec-lab/DeviceAnon/releases)
+![Android](https://img.shields.io/badge/Android-5.0%20–%2016-3FB950)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
----
+<img src="docs/img/demo.gif" width="300" alt="DeviceAnon demo" />
 
-## Features
+</div>
 
-- 35+ device profiles, **Android 5.0 → 16**.
-- One-tap **Apply** — writes a persistent Magisk module + applies live with `resetprop` (no reboot needed to take effect).
-- **Revert** — disables the module; clean state after reboot.
-- Auto-syncs `pif.json` if **PlayIntegrityFix** is installed, so the spoofed model matches Play Integrity attestation.
-- Spoofs across all partitions: `system`, `vendor`, `product`, `odm`, `system_ext`.
-- Profiles are **data-driven** (`app/src/main/assets/profiles.json`) — add your own without touching code.
+<div align="center">
+  <img src="docs/img/home.png"    width="240" alt="Device" />
+  <img src="docs/img/catalog.png" width="240" alt="Catalog" />
+  <img src="docs/img/about.png"   width="240" alt="About" />
+</div>
 
-## Why version spoofing matters
+## What it is
 
-The classic failure (e.g. Play Store "incompatible", or KYC/banking app blocks)
-is a **mismatch**: a device claiming an older Android model on a newer OS, or a
-LineageOS/AOSP build that leaks `lineage_*` strings. DeviceAnon replaces the
-full identity with a **coherent real device profile** so stores and integrity
-checks see a normal, shipping phone.
+A small, root-only tool that rewrites the properties apps use to identify your
+device — `ro.product.*` across every partition plus the build fingerprint — and
+pins them to a coherent, real device profile. It ships with 38 profiles from
+Android 5.0 through 16 (Pixel/Nexus and Samsung Galaxy), and matches
+PlayIntegrityFix's `pif.json` to the same profile when that module is present.
 
-## Build
+The common reason an app refuses to install or flags a device is a *mismatch*:
+an old model string on a newer OS, or a custom ROM leaking `lineage_*` build
+tags. DeviceAnon replaces the whole identity with one normal, shipping phone.
 
-Standard Gradle Android project — builds on any host architecture (Gradle
-fetches the correct `aapt2` per platform automatically):
+## Requirements
 
-```bash
-git clone https://github.com/Finsec-lab/DeviceAnon
-cd DeviceAnon
-./gradlew assembleRelease
-# APK: app/build/outputs/apk/release/app-release.apk
-```
-
-Or open in Android Studio and Run.
+- Root via Magisk or KernelSU
+- Runs on Android 5.0 – 16
 
 ## Install
 
-```bash
-adb install -r app-release.apk
+Grab the APK from [Releases](https://github.com/Finsec-lab/DeviceAnon/releases),
+or:
+
+```
+adb install -r DeviceAnon-v1.0.apk
 ```
 
-Open the app → grant root → pick a device → **Apply**.
+Open the app, grant root, pick a device in **Catalog**, tap **Apply**.
 
-## Profiles & fingerprint validity
+## Build
 
-Profiles live in [`app/src/main/assets/profiles.json`](app/src/main/assets/profiles.json).
-Each entry:
+Standard Gradle project — builds on any host (Gradle fetches the right `aapt2`
+for your platform):
+
+```
+git clone https://github.com/Finsec-lab/DeviceAnon
+cd DeviceAnon
+./gradlew assembleRelease
+```
+
+Output: `app/build/outputs/apk/release/`.
+
+## How it works
+
+Applying a profile writes a Magisk module and enforces it on every boot:
+
+```
+/data/adb/modules/deviceanon_props/
+  module.prop      module metadata
+  system.prop      ro.product.* / ro.build.fingerprint, read at boot
+  service.sh       resetprop enforcement (late_start)
+```
+
+Properties are also set live with `resetprop`, so the change takes effect
+without a reboot. If `playintegrityfix` is installed, its `pif.json` is rewritten
+to match the chosen profile. Any older spoof modules are disabled to avoid
+conflicts.
+
+## Profiles
+
+Profiles live in
+[`app/src/main/assets/profiles.json`](app/src/main/assets/profiles.json):
 
 ```json
 {
-  "id": "pixel8pro_u",
   "label": "Pixel 8 Pro — Android 14",
   "brand": "google",
   "manufacturer": "Google",
   "model": "Pixel 8 Pro",
   "name": "husky",
   "device": "husky",
-  "board": "husky",
   "fingerprint": "google/husky/husky:14/UQ1A.240105.004/11206848:user/release-keys",
   "security_patch": "2024-01-05",
   "release": "14",
@@ -73,47 +97,31 @@ Each entry:
 }
 ```
 
-The home screen renders a clean line-art device that matches the profile's
-**form factor** (phone / foldable / flip / tablet), with the brand logo on the
-screen. Optionally add an `"image": "https://…/render.png"` field to a profile
-and the app will load that render over the network, falling back to the vector
-if it's offline or fails. (No images are bundled — avoids trademark/copyright
-issues in a public repo.)
+Add your own by editing that file — the list and the home screen pick up new
+entries automatically, and the hero render adapts to the form factor
+(phone / foldable / flip / tablet). An optional `"image"` URL on a profile loads
+a custom render over the network, falling back to the vector if it's offline.
 
-> ⚠️ **Play Integrity validity is time-dependent.** Google rotates which
-> fingerprints still pass `MEETS_DEVICE_INTEGRITY`. The seed fingerprints here
-> are real-format and were valid at time of writing, but if one stops passing,
-> refresh it from a live source and edit the JSON:
-> - Google factory images: <https://developers.google.com/android/images>
-> - PlayIntegrityFix `pif.json`: <https://github.com/chiteroman/PlayIntegrityFix>
+Play Integrity validity changes over time: Google rotates which fingerprints
+still pass. If a profile stops passing, refresh its fingerprint from
+[Google's factory images](https://developers.google.com/android/images) or
+[PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix) and edit the
+JSON.
 
-## How it works
+## Works well with
 
-On **Apply**, the app writes:
+- [PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix) — basic / device integrity
+- [TrickyStore](https://github.com/5ec1cff/TrickyStore) — hardware-backed strong integrity
+- [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases) — hide root via DenyList
 
-```
-/data/adb/modules/deviceanon_props/
-  module.prop      # Magisk module metadata
-  system.prop      # ro.product.* / ro.build.fingerprint (loaded at boot)
-  service.sh       # resetprop enforcement every boot (late_start)
-```
+## Credits
 
-and, if present, updates `/data/adb/modules/playintegrityfix/pif.json`.
-
-It also disables any older `a05s_props` / `galaxy_props` modules to avoid
-conflicts.
-
-## Companion modules (recommended)
-
-- [PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix) — Play Integrity basic/device.
-- [TrickyStore](https://github.com/5ec1cff/TrickyStore) — hardware-backed STRONG integrity.
-- [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases) — hide root via DenyList.
-
-## Disclaimer
-
-For security research, development, and privacy on devices **you own**. You are
-responsible for complying with the terms of any app or service you use it with.
+- Typeface: [Inter](https://rsms.me/inter/) (SIL Open Font License)
+- Brand marks: [Simple Icons](https://simpleicons.org) (CC0). Trademarks belong to their respective owners and are used here only to identify the device being emulated.
 
 ## License
 
-MIT © FinSec Lab
+[MIT](LICENSE) © FinSec Lab
+
+For research, development, and privacy on devices you own. You are responsible
+for complying with the terms of any service you use it with.
