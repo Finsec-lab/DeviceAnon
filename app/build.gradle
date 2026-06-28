@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.finsec.deviceanon'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.finsec.deviceanon"
+        minSdk 21
+        targetSdk 34
+        vectorDrawables.useSupportLibrary false
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+}

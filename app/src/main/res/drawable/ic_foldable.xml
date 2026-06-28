@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp" android:height="300dp"
+    android:viewportWidth="240" android:viewportHeight="300">
+    <!-- open foldable: two panels -->
+    <path android:strokeColor="#2A2E34" android:strokeWidth="2.5" android:fillColor="#0E1013"
+        android:pathData="M16,24 h208 a14,14 0 0 1 14,14 v224 a14,14 0 0 1 -14,14 h-208 a14,14 0 0 1 -14,-14 v-224 a14,14 0 0 1 14,-14 z" />
+    <!-- left screen -->
+    <path android:strokeColor="#23272D" android:strokeWidth="1.5" android:fillColor="#0A0B0D"
+        android:pathData="M14,40 h100 v220 h-100 a4,4 0 0 1 -4,-4 v-212 a4,4 0 0 1 4,-4 z" />
+    <!-- right screen -->
+    <path android:strokeColor="#23272D" android:strokeWidth="1.5" android:fillColor="#0A0B0D"
+        android:pathData="M126,40 h100 a4,4 0 0 1 4,4 v212 a4,4 0 0 1 -4,4 h-100 z" />
+    <!-- hinge -->
+    <path android:fillColor="#23272D" android:pathData="M118,34 h4 v232 h-4 z" />
+</vector>

@@ -1,0 +1,25 @@
+# Gradle
+.gradle/
+build/
+out/
+local.properties
+!gradle/wrapper/gradle-wrapper.jar
+
+# Keystores (do not commit real signing keys)
+*.jks
+*.keystore
+keystore/
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+captures/
+
+# OS
+.DS_Store
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+*.dex

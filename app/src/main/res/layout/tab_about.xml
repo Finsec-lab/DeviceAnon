@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/page_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:scrollbars="none"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DeviceAnon swaps your build fingerprint and product properties for a real shipping-device profile. The change is written as a Magisk module, so it holds through reboots."
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:layout_marginTop="20dp" android:layout_marginBottom="16dp" android:background="@color/hairline" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="How it works" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="Pick a device in Catalog and tap Apply. Properties are set live with resetprop and persisted in /data/adb/modules/deviceanon_props. If PlayIntegrityFix is present, its pif.json is matched to the same profile automatically."
+            android:textColor="@color/text_secondary" android:textSize="13sp" android:lineSpacingExtra="3dp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22dp"
+            android:text="Recommended companions" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="PlayIntegrityFix   basic / device integrity\nTrickyStore   hardware-backed strong integrity\nShamiko   hide root via DenyList"
+            android:textColor="@color/text_secondary" android:textSize="13sp" android:fontFamily="monospace" android:lineSpacingExtra="5dp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22dp"
+            android:text="Requirements" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="Root via Magisk or KernelSU. Runs on Android 5.0 through 16."
+            android:textColor="@color/text_secondary" android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/github"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:text="View source on GitHub"
+            android:textColor="@color/text_primary"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/ic_github"
+            android:drawablePadding="10dp"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/btn_ghost" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="v1.0  ·  MIT License  ·  FinSec Lab"
+            android:textColor="@color/text_muted" android:textSize="11sp" android:fontFamily="monospace" />
+    </LinearLayout>
+</ScrollView>

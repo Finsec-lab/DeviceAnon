@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Monochrome operator palette. Color only comes from brand logos. -->
+    <color name="bg">#08090A</color>
+    <color name="surface">#101113</color>
+    <color name="surface_press">#15171A</color>
+    <color name="hairline">#1C1E22</color>
+
+    <color name="text_primary">#ECEDEE</color>
+    <color name="text_secondary">#8B9099</color>
+    <color name="text_muted">#565B63</color>
+
+    <color name="white">#FAFAFA</color>
+    <color name="white_press">#D8D8D8</color>
+    <color name="accent">#3B82F6</color>
+    <color name="online">#3FB950</color>
+
+    <!-- Brand badge colors (the only chrome color) -->
+    <color name="brand_google_bg">#FFFFFF</color>
+    <color name="brand_samsung">#1428A0</color>
+    <color name="brand_lg">#A50034</color>
+    <color name="brand_moto">#3B5AFE</color>
+    <color name="brand_huawei">#CF0A2C</color>
+    <color name="brand_generic">#23262B</color>
+</resources>

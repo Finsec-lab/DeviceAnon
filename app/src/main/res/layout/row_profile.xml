@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/row_bg"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="13dp"
+    android:paddingBottom="13dp">
+
+    <!-- Brand badge -->
+    <FrameLayout
+        android:layout_width="38dp"
+        android:layout_height="38dp">
+
+        <ImageView
+            android:id="@+id/badge_bg"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/badge_circle" />
+
+        <TextView
+            android:id="@+id/badge_mono"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/badge_logo"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_brand_google" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/row_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/row_codename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="codename"
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/row_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android 16"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:fontFamily="monospace" />
+
+    <ImageView
+        android:id="@+id/row_check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="12dp"
+        android:src="@drawable/ic_check"
+        android:visibility="invisible" />
+</LinearLayout>

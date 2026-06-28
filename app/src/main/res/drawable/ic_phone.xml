@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp" android:height="320dp"
+    android:viewportWidth="180" android:viewportHeight="320">
+    <!-- phone body -->
+    <path android:strokeColor="#2A2E34" android:strokeWidth="2.5" android:fillColor="#0E1013"
+        android:pathData="M44,12 h92 a20,20 0 0 1 20,20 v256 a20,20 0 0 1 -20,20 h-92 a20,20 0 0 1 -20,-20 v-256 a20,20 0 0 1 20,-20 z" />
+    <!-- screen -->
+    <path android:strokeColor="#23272D" android:strokeWidth="1.5" android:fillColor="#0A0B0D"
+        android:pathData="M34,30 h112 a8,8 0 0 1 8,8 v244 a8,8 0 0 1 -8,8 h-112 a8,8 0 0 1 -8,-8 v-244 a8,8 0 0 1 8,-8 z" />
+    <!-- camera -->
+    <path android:fillColor="#2A2E34" android:pathData="M90,22 m-3,0 a3,3 0 1 0 6,0 a3,3 0 1 0 -6,0" />
+    <!-- side button -->
+    <path android:fillColor="#23272D" android:pathData="M156,80 h3 v40 h-3 z" />
+</vector>

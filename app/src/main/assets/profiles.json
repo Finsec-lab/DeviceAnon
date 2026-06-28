@@ -1,0 +1,314 @@
+{
+  "_comment": "DeviceAnon by FinSec - device spoof profiles. Fingerprints are real-format seed values spanning Android 5-16. Play Integrity validity is time-dependent: refresh from https://github.com/chiteroman/PlayIntegrityFix or Google factory images if a profile stops passing.",
+  "_refresh_sources": [
+    "https://developers.google.com/android/images",
+    "https://github.com/chiteroman/PlayIntegrityFix",
+    "https://xdaforums.com (per-device firmware threads)"
+  ],
+  "profiles": [
+    {
+      "id": "nexus5_l",
+      "label": "Nexus 5 — Android 5.1",
+      "brand": "google", "manufacturer": "LGE", "model": "Nexus 5",
+      "name": "hammerhead", "device": "hammerhead", "board": "hammerhead",
+      "fingerprint": "google/hammerhead/hammerhead:5.1.1/LMY48B/1819533:user/release-keys",
+      "security_patch": "2015-04-01", "release": "5.1.1", "sdk": "22"
+    },
+    {
+      "id": "nexus6_l",
+      "label": "Nexus 6 — Android 5.1",
+      "brand": "google", "manufacturer": "motorola", "model": "Nexus 6",
+      "name": "shamu", "device": "shamu", "board": "shamu",
+      "fingerprint": "google/shamu/shamu:5.1.1/LMY48M/2167285:user/release-keys",
+      "security_patch": "2015-06-01", "release": "5.1.1", "sdk": "22"
+    },
+    {
+      "id": "galaxy_s5_l",
+      "label": "Samsung Galaxy S5 — Android 5.0",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G900F",
+      "name": "kltexx", "device": "klte", "board": "klte",
+      "fingerprint": "samsung/kltexx/klte:5.0/LRX21T/G900FXXU1BOB7:user/release-keys",
+      "security_patch": "2015-02-01", "release": "5.0", "sdk": "21"
+    },
+    {
+      "id": "nexus5x_m",
+      "label": "Nexus 5X — Android 6.0",
+      "brand": "google", "manufacturer": "LGE", "model": "Nexus 5X",
+      "name": "bullhead", "device": "bullhead", "board": "bullhead",
+      "fingerprint": "google/bullhead/bullhead:6.0.1/MMB29P/2756875:user/release-keys",
+      "security_patch": "2016-01-01", "release": "6.0.1", "sdk": "23"
+    },
+    {
+      "id": "nexus6p_m",
+      "label": "Nexus 6P — Android 6.0",
+      "brand": "google", "manufacturer": "huawei", "model": "Nexus 6P",
+      "name": "angler", "device": "angler", "board": "angler",
+      "fingerprint": "google/angler/angler:6.0.1/MMB29P/2756875:user/release-keys",
+      "security_patch": "2016-01-01", "release": "6.0.1", "sdk": "23"
+    },
+    {
+      "id": "galaxy_s7_m",
+      "label": "Samsung Galaxy S7 — Android 6.0",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G930F",
+      "name": "heroltexx", "device": "herolte", "board": "universal8890",
+      "fingerprint": "samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APB7:user/release-keys",
+      "security_patch": "2016-03-01", "release": "6.0.1", "sdk": "23"
+    },
+    {
+      "id": "pixel_n",
+      "label": "Pixel — Android 7.1",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel",
+      "name": "sailfish", "device": "sailfish", "board": "sailfish",
+      "fingerprint": "google/sailfish/sailfish:7.1.2/NJH47F/4146041:user/release-keys",
+      "security_patch": "2017-10-05", "release": "7.1.2", "sdk": "25"
+    },
+    {
+      "id": "pixel_xl_n",
+      "label": "Pixel XL — Android 7.1",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel XL",
+      "name": "marlin", "device": "marlin", "board": "marlin",
+      "fingerprint": "google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys",
+      "security_patch": "2017-10-05", "release": "7.1.2", "sdk": "25"
+    },
+    {
+      "id": "galaxy_s8_o",
+      "label": "Samsung Galaxy S8 — Android 8.0",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G950F",
+      "name": "dreamltexx", "device": "dreamlte", "board": "universal8895",
+      "fingerprint": "samsung/dreamltexx/dreamlte:8.0.0/R16NW/G950FXXU1CRC8:user/release-keys",
+      "security_patch": "2018-03-01", "release": "8.0.0", "sdk": "26"
+    },
+    {
+      "id": "pixel2_o",
+      "label": "Pixel 2 — Android 8.1",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 2",
+      "name": "walleye", "device": "walleye", "board": "walleye",
+      "fingerprint": "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+      "security_patch": "2018-02-05", "release": "8.1.0", "sdk": "27"
+    },
+    {
+      "id": "pixel2xl_o",
+      "label": "Pixel 2 XL — Android 8.1",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 2 XL",
+      "name": "taimen", "device": "taimen", "board": "taimen",
+      "fingerprint": "google/taimen/taimen:8.1.0/OPM1.171019.011/4448085:user/release-keys",
+      "security_patch": "2018-02-05", "release": "8.1.0", "sdk": "27"
+    },
+    {
+      "id": "pixel3_p",
+      "label": "Pixel 3 — Android 9",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 3",
+      "name": "blueline", "device": "blueline", "board": "blueline",
+      "fingerprint": "google/blueline/blueline:9/PQ3A.190705.001/5602230:user/release-keys",
+      "security_patch": "2019-07-05", "release": "9", "sdk": "28"
+    },
+    {
+      "id": "pixel3xl_p",
+      "label": "Pixel 3 XL — Android 9",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 3 XL",
+      "name": "crosshatch", "device": "crosshatch", "board": "crosshatch",
+      "fingerprint": "google/crosshatch/crosshatch:9/PQ3A.190705.003/5622519:user/release-keys",
+      "security_patch": "2019-07-05", "release": "9", "sdk": "28"
+    },
+    {
+      "id": "galaxy_s9_p",
+      "label": "Samsung Galaxy S9 — Android 9",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G960F",
+      "name": "starltexx", "device": "starlte", "board": "universal9810",
+      "fingerprint": "samsung/starltexx/starlte:9/PPR1.180610.011/G960FXXU5DSI7:user/release-keys",
+      "security_patch": "2019-09-01", "release": "9", "sdk": "28"
+    },
+    {
+      "id": "pixel4_q",
+      "label": "Pixel 4 — Android 10",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 4",
+      "name": "flame", "device": "flame", "board": "flame",
+      "fingerprint": "google/flame/flame:10/QQ3A.200805.001/6578210:user/release-keys",
+      "security_patch": "2020-08-05", "release": "10", "sdk": "29"
+    },
+    {
+      "id": "pixel3a_q",
+      "label": "Pixel 3a — Android 10",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 3a",
+      "name": "sargo", "device": "sargo", "board": "sargo",
+      "fingerprint": "google/sargo/sargo:10/QQ3A.200805.001/6578210:user/release-keys",
+      "security_patch": "2020-08-05", "release": "10", "sdk": "29"
+    },
+    {
+      "id": "galaxy_s10_q",
+      "label": "Samsung Galaxy S10 — Android 10",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G973F",
+      "name": "beyond1ltexx", "device": "beyond1", "board": "exynos9820",
+      "fingerprint": "samsung/beyond1ltexx/beyond1:10/QP1A.190711.020/G973FXXU8DTH8:user/release-keys",
+      "security_patch": "2020-08-01", "release": "10", "sdk": "29"
+    },
+    {
+      "id": "pixel5_r",
+      "label": "Pixel 5 — Android 11",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 5",
+      "name": "redfin", "device": "redfin", "board": "redfin",
+      "fingerprint": "google/redfin/redfin:11/RQ3A.211001.001/7641976:user/release-keys",
+      "security_patch": "2021-10-01", "release": "11", "sdk": "30"
+    },
+    {
+      "id": "pixel4a_r",
+      "label": "Pixel 4a — Android 11",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 4a",
+      "name": "sunfish", "device": "sunfish", "board": "sunfish",
+      "fingerprint": "google/sunfish/sunfish:11/RQ3A.211001.001/7641976:user/release-keys",
+      "security_patch": "2021-10-01", "release": "11", "sdk": "30"
+    },
+    {
+      "id": "galaxy_s20_r",
+      "label": "Samsung Galaxy S20 — Android 11",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G980F",
+      "name": "x1sxxx", "device": "x1s", "board": "exynos990",
+      "fingerprint": "samsung/x1sxxx/x1s:11/RP1A.200720.012/G980FXXU5CTL1:user/release-keys",
+      "security_patch": "2021-01-01", "release": "11", "sdk": "30"
+    },
+    {
+      "id": "pixel6_s",
+      "label": "Pixel 6 — Android 12",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 6",
+      "name": "oriole", "device": "oriole", "board": "oriole",
+      "fingerprint": "google/oriole/oriole:12/SQ3A.220705.003.A1/8672226:user/release-keys",
+      "security_patch": "2022-07-05", "release": "12", "sdk": "31"
+    },
+    {
+      "id": "pixel6pro_s",
+      "label": "Pixel 6 Pro — Android 12",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 6 Pro",
+      "name": "raven", "device": "raven", "board": "raven",
+      "fingerprint": "google/raven/raven:12/SQ3A.220705.003.A1/8672226:user/release-keys",
+      "security_patch": "2022-07-05", "release": "12", "sdk": "31"
+    },
+    {
+      "id": "galaxy_s21_s",
+      "label": "Samsung Galaxy S21 — Android 12",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-G991B",
+      "name": "o1sxxx", "device": "o1s", "board": "exynos2100",
+      "fingerprint": "samsung/o1sxxx/o1s:12/SP1A.210812.016/G991BXXU4CVF2:user/release-keys",
+      "security_patch": "2022-06-01", "release": "12", "sdk": "31"
+    },
+    {
+      "id": "pixel7_t",
+      "label": "Pixel 7 — Android 13",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 7",
+      "name": "panther", "device": "panther", "board": "panther",
+      "fingerprint": "google/panther/panther:13/TQ3A.230901.001/10750268:user/release-keys",
+      "security_patch": "2023-09-05", "release": "13", "sdk": "33"
+    },
+    {
+      "id": "pixel7pro_t",
+      "label": "Pixel 7 Pro — Android 13",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 7 Pro",
+      "name": "cheetah", "device": "cheetah", "board": "cheetah",
+      "fingerprint": "google/cheetah/cheetah:13/TQ3A.230901.001/10750268:user/release-keys",
+      "security_patch": "2023-09-05", "release": "13", "sdk": "33"
+    },
+    {
+      "id": "galaxy_s22_t",
+      "label": "Samsung Galaxy S22 — Android 13",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S901B",
+      "name": "r0sxxx", "device": "r0s", "board": "exynos2200",
+      "fingerprint": "samsung/r0sxxx/r0s:13/TP1A.220624.014/S901BXXU2BVL5:user/release-keys",
+      "security_patch": "2023-01-01", "release": "13", "sdk": "33"
+    },
+    {
+      "id": "pixel8_u",
+      "label": "Pixel 8 — Android 14",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 8",
+      "name": "shiba", "device": "shiba", "board": "shiba",
+      "fingerprint": "google/shiba/shiba:14/UQ1A.240105.004/11206848:user/release-keys",
+      "security_patch": "2024-01-05", "release": "14", "sdk": "34"
+    },
+    {
+      "id": "pixel8pro_u",
+      "label": "Pixel 8 Pro — Android 14",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 8 Pro",
+      "name": "husky", "device": "husky", "board": "husky",
+      "fingerprint": "google/husky/husky:14/UQ1A.240105.004/11206848:user/release-keys",
+      "security_patch": "2024-01-05", "release": "14", "sdk": "34"
+    },
+    {
+      "id": "galaxy_s23_u",
+      "label": "Samsung Galaxy S23 — Android 14",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S911B",
+      "name": "dm1qxxx", "device": "dm1q", "board": "kalama",
+      "fingerprint": "samsung/dm1qxxx/dm1q:14/UP1A.231005.007/S911BXXU5CWL1:user/release-keys",
+      "security_patch": "2024-01-01", "release": "14", "sdk": "34"
+    },
+    {
+      "id": "pixel9_v",
+      "label": "Pixel 9 — Android 15",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 9",
+      "name": "tokay", "device": "tokay", "board": "tokay",
+      "fingerprint": "google/tokay/tokay:15/AP3A.241005.015/12477147:user/release-keys",
+      "security_patch": "2024-10-05", "release": "15", "sdk": "35"
+    },
+    {
+      "id": "pixel9pro_v",
+      "label": "Pixel 9 Pro — Android 15",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 9 Pro",
+      "name": "caiman", "device": "caiman", "board": "caiman",
+      "fingerprint": "google/caiman/caiman:15/AP3A.241005.015/12477147:user/release-keys",
+      "security_patch": "2024-10-05", "release": "15", "sdk": "35"
+    },
+    {
+      "id": "galaxy_s24_v",
+      "label": "Samsung Galaxy S24 — Android 15",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S921B",
+      "name": "e1qxxx", "device": "e1q", "board": "pineapple",
+      "fingerprint": "samsung/e1qxxx/e1q:15/AP3A.241005.015/S921BXXU4CXL1:user/release-keys",
+      "security_patch": "2024-12-01", "release": "15", "sdk": "35"
+    },
+    {
+      "id": "pixel9proxl_w",
+      "label": "Pixel 9 Pro XL — Android 16",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 9 Pro XL",
+      "name": "komodo", "device": "komodo", "board": "komodo",
+      "fingerprint": "google/komodo/komodo:16/BP2A.250605.031.A2/13606403:user/release-keys",
+      "security_patch": "2025-06-05", "release": "16", "sdk": "36"
+    },
+    {
+      "id": "pixel9pro_w",
+      "label": "Pixel 9 Pro — Android 16",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 9 Pro",
+      "name": "caiman", "device": "caiman", "board": "caiman",
+      "fingerprint": "google/caiman/caiman:16/BP2A.250605.031.A2/13606403:user/release-keys",
+      "security_patch": "2025-06-05", "release": "16", "sdk": "36"
+    },
+    {
+      "id": "pixel8_w",
+      "label": "Pixel 8 — Android 16",
+      "brand": "google", "manufacturer": "Google", "model": "Pixel 8",
+      "name": "shiba", "device": "shiba", "board": "shiba",
+      "fingerprint": "google/shiba/shiba:16/BP2A.250605.031.A2/13606403:user/release-keys",
+      "security_patch": "2025-06-05", "release": "16", "sdk": "36"
+    },
+    {
+      "id": "galaxy_s24_ultra_w",
+      "label": "Samsung Galaxy S24 Ultra — Android 16 (One UI 8)",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S928B",
+      "name": "e3qxxx", "device": "e3q", "board": "pineapple",
+      "fingerprint": "samsung/e3qxxx/e3q:16/BP2A.250605.031/S928BXXU7DYG3:user/release-keys",
+      "security_patch": "2025-07-01", "release": "16", "sdk": "36"
+    },
+    {
+      "id": "galaxy_s25_ultra_w",
+      "label": "Samsung Galaxy S25 Ultra — Android 16 (One UI 8)",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S938B",
+      "name": "pa3qxxx", "device": "pa3q", "board": "sun",
+      "fingerprint": "samsung/pa3qxxx/pa3q:16/BP2A.250605.031/S938BXXU4BYG5:user/release-keys",
+      "security_patch": "2025-07-01", "release": "16", "sdk": "36"
+    },
+    {
+      "id": "galaxy_s25_w",
+      "label": "Samsung Galaxy S25 — Android 16 (One UI 8)",
+      "brand": "samsung", "manufacturer": "samsung", "model": "SM-S931B",
+      "name": "pa1qxxx", "device": "pa1q", "board": "sun",
+      "fingerprint": "samsung/pa1qxxx/pa1q:16/BP2A.250605.031/S931BXXU4BYG5:user/release-keys",
+      "security_patch": "2025-07-01", "release": "16", "sdk": "36"
+    }
+  ]
+}

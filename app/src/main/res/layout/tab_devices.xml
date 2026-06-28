@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/page_devices"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Choose a device"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/profiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/hairline"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"
+        android:clipToPadding="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:paddingBottom="14dp">
+
+        <Button
+            android:id="@+id/apply"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="50dp"
+            android:text="Apply"
+            android:textColor="#0A0A0A"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:background="@drawable/btn_primary" />
+
+        <Button
+            android:id="@+id/revert"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:text="Revert"
+            android:textColor="@color/text_secondary"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:background="@drawable/btn_ghost" />
+    </LinearLayout>
+</LinearLayout>
