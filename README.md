@@ -14,11 +14,7 @@ shipping-device profile. Applied as a Magisk module, so it survives reboots.
 
 </div>
 
-<div align="center">
-  <img src="docs/img/home.png"    width="240" alt="Device" />
-  <img src="docs/img/catalog.png" width="240" alt="Catalog" />
-  <img src="docs/img/about.png"   width="240" alt="About" />
-</div>
+ 
 
 ## What it is
 
