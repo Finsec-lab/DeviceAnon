@@ -212,17 +212,17 @@ public class MainActivity extends Activity {
     private void toast(String s) { Toast.makeText(this, s, Toast.LENGTH_SHORT).show(); }
 
     // ---------- brand ----------
-    private static class Badge { int colorRes; boolean google; String mono; }
+    private static class Badge { int colorRes; int logoRes; String mono; }
 
     private static Badge badgeFor(Profile p) {
         Badge b = new Badge();
         String brand = p.brand == null ? "" : p.brand.toLowerCase();
         String man = p.manufacturer == null ? "" : p.manufacturer.toLowerCase();
-        if (brand.equals("google") || man.equals("google")) { b.google = true; b.colorRes = R.color.brand_google_bg; b.mono = ""; }
-        else if (brand.equals("samsung") || man.equals("samsung")) { b.colorRes = R.color.brand_samsung; b.mono = "S"; }
-        else if (man.contains("lg")) { b.colorRes = R.color.brand_lg; b.mono = "LG"; }
-        else if (man.contains("motorola")) { b.colorRes = R.color.brand_moto; b.mono = "M"; }
-        else if (man.contains("huawei")) { b.colorRes = R.color.brand_huawei; b.mono = "H"; }
+        if (brand.equals("google") || man.equals("google")) { b.colorRes = R.color.brand_google_bg; b.logoRes = R.drawable.ic_brand_google; }
+        else if (brand.equals("samsung") || man.equals("samsung")) { b.colorRes = R.color.brand_samsung; b.logoRes = R.drawable.ic_brand_samsung; }
+        else if (man.contains("lg")) { b.colorRes = R.color.brand_lg; b.logoRes = R.drawable.ic_brand_lg; }
+        else if (man.contains("motorola")) { b.colorRes = R.color.brand_moto; b.logoRes = R.drawable.ic_brand_motorola; }
+        else if (man.contains("huawei")) { b.colorRes = R.color.brand_huawei; b.logoRes = R.drawable.ic_brand_huawei; }
         else { b.colorRes = R.color.brand_generic; b.mono = (man.length() > 0 ? man.substring(0,1).toUpperCase() : "?"); }
         return b;
     }
@@ -230,8 +230,12 @@ public class MainActivity extends Activity {
     private void applyBadge(Profile p, ImageView bg, TextView mono, ImageView logo) {
         Badge b = badgeFor(p);
         if (bg.getDrawable() != null) bg.getDrawable().mutate().setColorFilter(getResources().getColor(b.colorRes), PorterDuff.Mode.SRC_IN);
-        if (b.google) { logo.setVisibility(View.VISIBLE); mono.setVisibility(View.GONE); }
-        else { logo.setVisibility(View.GONE); mono.setVisibility(View.VISIBLE); mono.setText(b.mono); }
+        if (b.logoRes != 0) {
+            logo.setVisibility(View.VISIBLE); mono.setVisibility(View.GONE);
+            logo.setImageResource(b.logoRes);
+        } else {
+            logo.setVisibility(View.GONE); mono.setVisibility(View.VISIBLE); mono.setText(b.mono);
+        }
     }
 
     // ---------- adapter ----------
