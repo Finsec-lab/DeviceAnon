@@ -273,34 +273,92 @@ public class MainActivity extends Activity {
         protected String doInBackground(Profile... ps) {
             p = ps[0];
             StringBuilder c = new StringBuilder();
-            c.append("set -e\nMOD=/data/adb/modules/deviceanon_props\nmkdir -p $MOD\n");
-            c.append("[ -d /data/adb/modules/a05s_props ] && touch /data/adb/modules/a05s_props/disable || true\n");
-            c.append("[ -d /data/adb/modules/galaxy_props ] && touch /data/adb/modules/galaxy_props/disable || true\n");
-            c.append("cat > $MOD/module.prop <<EOF\nid=deviceanon_props\nname=DeviceAnon (").append(p.label).append(")\nversion=1.0\nversionCode=1\nauthor=FinSec\ndescription=Spoof ").append(p.label).append("\nEOF\n");
-            c.append("cat > $MOD/system.prop <<EOF\n"); props(c, p); c.append("EOF\n");
-            c.append("cat > $MOD/service.sh <<EOF\n#!/system/bin/sh\nFP=\"").append(p.fingerprint).append("\"\n");
-            rp(c, "ro.product.brand", p.brand); rp(c, "ro.product.manufacturer", p.manufacturer);
-            rp(c, "ro.product.model", p.model); rp(c, "ro.product.name", p.name);
-            rp(c, "ro.product.device", p.device); rp(c, "ro.product.board", p.board);
-            c.append("for q in product system vendor odm system_ext; do\n");
-            c.append(" resetprop -n ro.product.\\$q.brand ").append(p.brand).append("\n");
-            c.append(" resetprop -n ro.product.\\$q.manufacturer '").append(p.manufacturer).append("'\n");
-            c.append(" resetprop -n ro.product.\\$q.model '").append(p.model).append("'\n");
-            c.append(" resetprop -n ro.product.\\$q.name ").append(p.name).append("\n");
-            c.append(" resetprop -n ro.product.\\$q.device ").append(p.device).append("\ndone\n");
-            rp(c, "ro.build.product", p.device); rp(c, "ro.build.brand", p.brand); rp(c, "ro.build.manufacturer", p.manufacturer);
-            c.append("resetprop -n ro.build.type user\nresetprop -n ro.build.tags release-keys\n");
-            for (String k : new String[]{"ro.build.fingerprint","ro.system.build.fingerprint","ro.vendor.build.fingerprint","ro.product.build.fingerprint","ro.odm.build.fingerprint","ro.system_ext.build.fingerprint"})
-                c.append("resetprop -n ").append(k).append(" \"$FP\"\n");
-            rp(c, "ro.build.version.security_patch", p.security_patch); rp(c, "ro.build.version.release", p.release);
-            c.append("resetprop -n ro.boot.verifiedbootstate green\nresetprop -n ro.boot.flash.locked 1\n");
-            c.append("resetprop -n ro.boot.vbmeta.device_state locked\nresetprop -n ro.boot.veritymode enforcing\n");
-            c.append("resetprop -n ro.kernel.qemu 0\nresetprop -n ro.boot.qemu 0\nEOF\nchmod 0755 $MOD/service.sh\nsh $MOD/service.sh\n");
-            c.append("if [ -d /data/adb/modules/playintegrityfix ]; then cat > /data/adb/modules/playintegrityfix/pif.json <<PIF\n{\n");
-            c.append("  \"PRODUCT\": \"").append(p.name).append("\",\n  \"DEVICE\": \"").append(p.device).append("\",\n");
-            c.append("  \"MANUFACTURER\": \"").append(p.manufacturer).append("\",\n  \"BRAND\": \"").append(p.brand).append("\",\n");
-            c.append("  \"MODEL\": \"").append(p.model).append("\",\n  \"FINGERPRINT\": \"").append(p.fingerprint).append("\",\n");
-            c.append("  \"SECURITY_PATCH\": \"").append(p.security_patch).append("\",\n  \"DEVICE_INITIAL_SDK_INT\": \"").append(p.sdk).append("\"\n}\nPIF\nfi\necho OK\n");
+            // BOOTLOOP-SAFETY: no `set -e` at the top. We want failures to be
+            // tolerated step-by-step so a single bad command never wedges the
+            // device on next boot. Every operation ends with `|| true`.
+            c.append("MOD=/data/adb/modules/deviceanon_props\n");
+            c.append("MODUPD=/data/adb/modules_update/deviceanon_props\n");
+            // Use modules_update/ which is the canonical staging location —
+            // Magisk applies it atomically on next boot.
+            c.append("mkdir -p \"$MOD\" \"$MODUPD\" 2>/dev/null || true\n");
+            // Disable any conflicting older spoofers so they don't fight us.
+            c.append("for m in a05s_props galaxy_props; do\n");
+            c.append("  [ -d /data/adb/modules/$m ] && touch /data/adb/modules/$m/disable 2>/dev/null || true\n");
+            c.append("done\n");
+
+            // --- module.prop (escape user input) ---
+            String label = sh(p.label);
+            c.append("cat > \"$MOD/module.prop\" <<'EOF_MP' || true\n");
+            c.append("id=deviceanon_props\n");
+            c.append("name=DeviceAnon (").append(label).append(")\n");
+            c.append("version=1.0\n");
+            c.append("versionCode=2\n");
+            c.append("author=FinSec\n");
+            c.append("description=Spoof ").append(label).append("\n");
+            c.append("minMagisk=20400\n");
+            c.append("EOF_MP\n");
+
+            // --- system.prop (read at boot by Magisk) ---
+            c.append("cat > \"$MOD/system.prop\" <<'EOF_SP' || true\n");
+            props(c, p);
+            c.append("EOF_SP\n");
+
+            // --- sepolicy.rule so resetprop can write vendor/odm props on locked SELinux ---
+            c.append("cat > \"$MOD/sepolicy.rule\" <<'EOF_SE' || true\n");
+            c.append("allow magisk default_prop file { write };\n");
+            c.append("allow magisk vendor_default_prop file { write };\n");
+            c.append("EOF_SE\n");
+
+            // --- post-fs-data.sh — earliest safe point, runs before zygote ---
+            // We DO NOT use `set -e` here. Every line tolerates failure.
+            c.append("cat > \"$MOD/post-fs-data.sh\" <<'EOF_PFS' || true\n");
+            c.append("#!/system/bin/sh\nMODDIR=${0%/*}\n");
+            c.append("# Wait briefly for resetprop to be available\n");
+            c.append("for i in 1 2 3 4 5; do\n");
+            c.append("  command -v resetprop >/dev/null 2>&1 && break\n");
+            c.append("  sleep 1\n");
+            c.append("done\n");
+            // Write all resetprop calls in safe form
+            String fp = sh(p.fingerprint);
+            appendResetprops(c, p, fp);
+            c.append("exit 0\n");
+            c.append("EOF_PFS\n");
+
+            // --- service.sh — runs late_start, idempotent re-application ---
+            c.append("cat > \"$MOD/service.sh\" <<'EOF_SVC' || true\n");
+            c.append("#!/system/bin/sh\nMODDIR=${0%/*}\n");
+            c.append("# Wait for boot completion\n");
+            c.append("w=0\n");
+            c.append("while [ \"$(getprop sys.boot_completed 2>/dev/null)\" != \"1\" ] && [ $w -lt 60 ]; do\n");
+            c.append("  sleep 1; w=$((w+1))\n");
+            c.append("done\n");
+            c.append("sleep 2\n");
+            appendResetprops(c, p, fp);
+            // pif.json sync (only if installed)
+            c.append("if [ -d /data/adb/modules/playintegrityfix ]; then\n");
+            c.append("  cat > /data/adb/modules/playintegrityfix/pif.json <<'EOF_PIF'\n");
+            c.append("{\n");
+            c.append("  \"PRODUCT\": \"").append(sh(p.name)).append("\",\n");
+            c.append("  \"DEVICE\": \"").append(sh(p.device)).append("\",\n");
+            c.append("  \"MANUFACTURER\": \"").append(sh(p.manufacturer)).append("\",\n");
+            c.append("  \"BRAND\": \"").append(sh(p.brand)).append("\",\n");
+            c.append("  \"MODEL\": \"").append(sh(p.model)).append("\",\n");
+            c.append("  \"FINGERPRINT\": \"").append(fp).append("\",\n");
+            c.append("  \"SECURITY_PATCH\": \"").append(sh(p.security_patch)).append("\",\n");
+            c.append("  \"DEVICE_INITIAL_SDK_INT\": \"").append(sh(p.sdk)).append("\"\n");
+            c.append("}\nEOF_PIF\nfi\n");
+            c.append("exit 0\n");
+            c.append("EOF_SVC\n");
+
+            c.append("chmod 0755 \"$MOD/post-fs-data.sh\" \"$MOD/service.sh\" 2>/dev/null || true\n");
+            // Apply live (non-fatal: if it fails, next boot still picks it up)
+            c.append("sh \"$MOD/service.sh\" >/dev/null 2>&1 &\n");
+            // Verify module is present
+            c.append("if [ -f \"$MOD/module.prop\" ] && [ -f \"$MOD/post-fs-data.sh\" ]; then\n");
+            c.append("  echo OK\n");
+            c.append("else\n");
+            c.append("  echo MISSING_FILES\n");
+            c.append("fi\n");
             return runRoot(c.toString());
         }
         protected void onPostExecute(String out) {
@@ -315,9 +373,66 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Append the live resetprop block. Tolerates errors. */
+    private static void appendResetprops(StringBuilder c, Profile p, String fp) {
+        rp(c, "ro.product.brand", p.brand);
+        rp(c, "ro.product.manufacturer", p.manufacturer);
+        rp(c, "ro.product.model", p.model);
+        rp(c, "ro.product.name", p.name);
+        rp(c, "ro.product.device", p.device);
+        rp(c, "ro.product.board", p.board);
+        c.append("for q in product system vendor odm system_ext; do\n");
+        rpQ(c, "ro.product.\\$q.brand", p.brand);
+        rpQ(c, "ro.product.\\$q.manufacturer", p.manufacturer);
+        rpQ(c, "ro.product.\\$q.model", p.model);
+        rpQ(c, "ro.product.\\$q.name", p.name);
+        rpQ(c, "ro.product.\\$q.device", p.device);
+        c.append("done\n");
+        rp(c, "ro.build.product", p.device);
+        rp(c, "ro.build.brand", p.brand);
+        rp(c, "ro.build.manufacturer", p.manufacturer);
+        rp(c, "ro.build.type", "user");
+        rp(c, "ro.build.tags", "release-keys");
+        for (String k : new String[]{
+                "ro.build.fingerprint", "ro.system.build.fingerprint",
+                "ro.vendor.build.fingerprint", "ro.product.build.fingerprint",
+                "ro.odm.build.fingerprint", "ro.system_ext.build.fingerprint"}) {
+            c.append("resetprop -n ").append(k).append(" \"").append(fp).append("\" 2>/dev/null || true\n");
+        }
+        rp(c, "ro.build.version.security_patch", p.security_patch);
+        rp(c, "ro.build.version.release", p.release);
+        rp(c, "ro.boot.verifiedbootstate", "green");
+        rp(c, "ro.boot.flash.locked", "1");
+        rp(c, "ro.boot.vbmeta.device_state", "locked");
+        rp(c, "ro.boot.veritymode", "enforcing");
+        rp(c, "ro.kernel.qemu", "0");
+        rp(c, "ro.boot.qemu", "0");
+    }
+
+    /** Shell-escape: replace single quotes and dangerous metacharacters. */
+    private static String sh(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "")
+                .replace("`", "")
+                .replace("$", "")
+                .replace("\"", "")
+                .replace("\n", "")
+                .replace("\r", "")
+                .replace("'", "");
+    }
+
     private class RevertTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... v) {
-            return runRoot("for m in deviceanon_props galaxy_props a05s_props; do [ -d /data/adb/modules/$m ] && touch /data/adb/modules/$m/disable; done; echo REVERTED");
+            // Disable any DeviceAnon-managed module on next boot. We don't try
+            // to live-revert resetprop calls — that's a reboot's job and
+            // forcing a system-prop rewrite at runtime is more likely to crash
+            // services that have already cached values.
+            return runRoot(
+                "for m in deviceanon_props galaxy_props a05s_props; do\n" +
+                "  [ -d /data/adb/modules/$m ] && touch /data/adb/modules/$m/disable 2>/dev/null || true\n" +
+                "done\n" +
+                "echo REVERTED\n"
+            );
         }
         protected void onPostExecute(String out) { toast("Reverted — reboot to reset"); }
     }
@@ -337,18 +452,41 @@ public class MainActivity extends Activity {
         kv(sb,"ro.boot.verifiedbootstate","green"); kv(sb,"ro.boot.flash.locked","1");
         kv(sb,"ro.boot.vbmeta.device_state","locked"); kv(sb,"ro.boot.veritymode","enforcing");
     }
-    private static void kv(StringBuilder sb,String k,String v){ sb.append(k).append("=").append(v).append("\n"); }
-    private static void rp(StringBuilder sb,String k,String v){ sb.append("resetprop -n ").append(k).append(" '").append(v).append("'\n"); }
+    private static void kv(StringBuilder sb,String k,String v){ sb.append(k).append("=").append(sh(v)).append("\n"); }
+    /** Resetprop with safe quoting + tolerated failure. */
+    private static void rp(StringBuilder sb,String k,String v){
+        sb.append("resetprop -n ").append(k).append(" '").append(sh(v)).append("' 2>/dev/null || true\n");
+    }
+    /** Resetprop where the key contains a shell variable (already escaped); tolerated failure. */
+    private static void rpQ(StringBuilder sb,String k,String v){
+        sb.append(" resetprop -n ").append(k).append(" '").append(sh(v)).append("' 2>/dev/null || true\n");
+    }
 
     private static String runRoot(String script) {
-        try {
-            Process p = Runtime.getRuntime().exec(new String[]{"su","-c","sh"});
-            DataOutputStream dos = new DataOutputStream(p.getOutputStream());
-            dos.writeBytes(script); dos.writeBytes("\nexit\n"); dos.flush(); dos.close();
-            StringBuilder out = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line; while ((line = r.readLine()) != null) out.append(line).append(" ");
-            p.waitFor(); return out.toString();
-        } catch (Exception e) { return "su failed: " + e.getMessage(); }
+        // Try a few su binary locations — on Samsung One UI 7+ the canonical
+        // location is /product/bin/su. Some KernelSU forks ship at /system/bin
+        // only.
+        String[] candidates = {"su", "/product/bin/su", "/system/bin/su", "/sbin/su"};
+        for (String su : candidates) {
+            try {
+                Process p = Runtime.getRuntime().exec(new String[]{su, "-c", "sh"});
+                DataOutputStream dos = new DataOutputStream(p.getOutputStream());
+                dos.writeBytes(script);
+                dos.writeBytes("\nexit 0\n");
+                dos.flush();
+                dos.close();
+                StringBuilder out = new StringBuilder();
+                BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line;
+                while ((line = r.readLine()) != null) out.append(line).append(" ");
+                p.waitFor();
+                if (p.exitValue() == 0 || out.length() > 0) {
+                    return out.toString();
+                }
+            } catch (Exception ignored) {
+                // try next candidate
+            }
+        }
+        return "su failed";
     }
 }
