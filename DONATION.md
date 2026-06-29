@@ -1,9 +1,23 @@
 <div align="center">
 
-# <img src="docs/img/icons/sepa.svg" width="40" valign="middle"/>&nbsp;Donate
+# Donate
 
 If FinSec Lab projects helped you, a tip keeps them independent.<br/>
 Scan a QR or copy an address.
+
+<sub>
+
+<img src="docs/img/icons/btc.svg" width="18" valign="middle"/>&nbsp;BTC&nbsp;
+<img src="docs/img/icons/eth.svg" width="18" valign="middle"/>&nbsp;ETH&nbsp;
+<img src="docs/img/icons/trx.svg" width="18" valign="middle"/>&nbsp;TRX&nbsp;
+<img src="docs/img/icons/sol.svg" width="18" valign="middle"/>&nbsp;SOL&nbsp;
+<img src="docs/img/icons/bnb.svg" width="18" valign="middle"/>&nbsp;BNB&nbsp;
+<img src="docs/img/icons/polygon.svg" width="18" valign="middle"/>&nbsp;MATIC&nbsp;
+<img src="docs/img/icons/usdt.svg" width="18" valign="middle"/>&nbsp;USDT&nbsp;
+<img src="docs/img/icons/usdc.svg" width="18" valign="middle"/>&nbsp;USDC&nbsp;
+<img src="docs/img/icons/sepa.svg" width="22" valign="middle"/>
+
+</sub>
 
 </div>
 
