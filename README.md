@@ -34,10 +34,6 @@ Rewrites `ro.product.*`, the build fingerprint, and `pif.json` to a coherent dev
 ## Works with
 
 ![Magisk](https://img.shields.io/badge/Magisk-323232?style=flat-square&logo=magisk&logoColor=white)
-![KernelSU](https://img.shields.io/badge/KernelSU-323232?style=flat-square)
-[![PlayIntegrityFix](https://img.shields.io/badge/PlayIntegrityFix-323232?style=flat-square)](https://github.com/chiteroman/PlayIntegrityFix)
-[![TrickyStore](https://img.shields.io/badge/TrickyStore-323232?style=flat-square)](https://github.com/5ec1cff/TrickyStore)
-[![Shamiko](https://img.shields.io/badge/Shamiko-323232?style=flat-square)](https://github.com/LSPosed/LSPosed.github.io/releases)
 
 ## Build
 
