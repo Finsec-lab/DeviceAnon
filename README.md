@@ -49,25 +49,15 @@ cd DeviceAnon
 
 ## Donate
 
-![BTC](https://img.shields.io/badge/Bitcoin-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white)
-```
-bc1qxyzplaceholderfinseclab000000
-```
+[![BTC](https://img.shields.io/badge/Bitcoin-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white)](DONATION.md)
+[![ETH](https://img.shields.io/badge/Ethereum-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)](DONATION.md)
+[![TRON](https://img.shields.io/badge/TRON-E72F33?style=for-the-badge&logoColor=white)](DONATION.md)
+[![Solana](https://img.shields.io/badge/Solana-9945FF?style=for-the-badge&logoColor=white)](DONATION.md)
+[![USDT](https://img.shields.io/badge/USDT-26A17B?style=for-the-badge&logo=tether&logoColor=white)](DONATION.md)
+[![USDC](https://img.shields.io/badge/USDC-2775CA?style=for-the-badge&logoColor=white)](DONATION.md)
+[![SEPA](https://img.shields.io/badge/SEPA-1A56DB?style=for-the-badge&logoColor=white)](DONATION.md)
 
-![ETH](https://img.shields.io/badge/Ethereum-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)
-```
-0x0000000000000000000000FinSecLab
-```
-
-![USDT](https://img.shields.io/badge/USDT_(TON)-26A17B?style=for-the-badge&logo=tether&logoColor=white)
-```
-UQ_FinSecLab_TON_Placeholder000
-```
-
-![IBAN](https://img.shields.io/badge/IBAN-1A56DB?style=for-the-badge&logo=mastercard&logoColor=white)
-```
-XX00 0000 0000 0000 0000 00
-```
+→ [**See full donation page with QR codes**](DONATION.md)
 
 <br/>
 
