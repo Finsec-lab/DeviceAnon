@@ -10,7 +10,7 @@ Swap your device identity for a real shipping-device profile.
 &nbsp;
 [![Release](https://img.shields.io/github/v/release/Finsec-lab/DeviceAnon?style=for-the-badge&label=download&color=323232)](https://github.com/Finsec-lab/DeviceAnon/releases/latest)
 &nbsp;
-[![Android](https://img.shields.io/badge/Android-5_–_16-323232?style=for-the-badge&logo=android&logoColor=white)](#)
+[![Android](https://img.shields.io/badge/Android-8_–_16-323232?style=for-the-badge&logo=android&logoColor=white)](#)
 &nbsp;
 [![License](https://img.shields.io/badge/MIT-323232?style=for-the-badge)](LICENSE)
 
@@ -63,10 +63,7 @@ cd DeviceAnon
 
 <div align="center">
 
-<sub>Built with</sub>
-
-<img src="docs/img/languages.png" width="640" alt="Java · Kotlin · Shell · XML" />
-
+ 
 <br/><br/>
 
 <a href="https://t.me/FinSecLab"><img src="docs/img/icons/telegram.svg" width="22"/></a>
