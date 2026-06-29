@@ -63,7 +63,15 @@ cd DeviceAnon
 
 <div align="center">
 
-[Telegram](https://t.me/FinSecLab) &nbsp;·&nbsp; [GitHub](https://github.com/Finsec-lab)
+<sub>Built with</sub>
+
+<img src="docs/img/languages.png" width="640" alt="Java · Kotlin · Shell · XML" />
+
+<br/><br/>
+
+<a href="https://t.me/FinSecLab"><img src="docs/img/icons/telegram.svg" width="22"/></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Finsec-lab"><img src="docs/img/icons/github.svg" width="22"/></a>
 
 <sub>MIT — © FinSec Lab · For devices you own.</sub>
 
