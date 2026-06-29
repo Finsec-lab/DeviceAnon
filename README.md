@@ -13,63 +13,44 @@ Swap your Android device identity for a real shipping-device profile.
 
 </div>
 
-&nbsp;
-
 ### Install
-
 ```
 adb install -r DeviceAnon.apk
 ```
-
 Open the app, grant root, pick a device in **Catalog**, tap **Apply**.
 
-&nbsp;
-
 ### Requires
-
 Magisk or KernelSU · Android 5 – 16
 
-&nbsp;
-
 ### What it does
-
-Rewrites `ro.product.*`, the build fingerprint, and the matching `pif.json` to a
-coherent device profile. 38 profiles ship out of the box — Pixel, Nexus, Galaxy
-— across Android 5 through 16.
-
-&nbsp;
+Rewrites `ro.product.*`, the build fingerprint, and the matching `pif.json` to a coherent device profile. 38 profiles ship out of the box — Pixel, Nexus, Galaxy — across Android 5 through 16.
 
 ### Build
-
 ```
 git clone https://github.com/Finsec-lab/DeviceAnon
 cd DeviceAnon
 ./gradlew assembleRelease
 ```
-
 Output: `app/build/outputs/apk/release/`.
 
-&nbsp;
-
 ### Plays well with
+[PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix) · [TrickyStore](https://github.com/5ec1cff/TrickyStore) · [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
 
-[PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix) ·
-[TrickyStore](https://github.com/5ec1cff/TrickyStore) ·
-[Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
+### Donate
+If DeviceAnon helped you, a tip keeps it independent.
 
-&nbsp;
+| | |
+|---|---|
+| **BTC** | `bc1qxyzplaceholderfinseclab000000` |
+| **ETH** | `0x0000000000000000000000FinSecLab` |
+| **USDT** (TON) | `UQ_FinSecLab_TON_Placeholder000` |
+| **IBAN** | `XX00 0000 0000 0000 0000 00` |
 
 ### Credits
-
-[Inter](https://rsms.me/inter/) (SIL OFL) · [Simple Icons](https://simpleicons.org) (CC0).
-Trademarks belong to their respective owners.
-
-&nbsp;
+[Inter](https://rsms.me/inter/) (SIL OFL) · [Simple Icons](https://simpleicons.org) (CC0). Trademarks belong to their respective owners.
 
 <div align="center">
 
-MIT — © FinSec Lab
-
-For devices you own.
+MIT — © FinSec Lab · For devices you own.
 
 </div>
